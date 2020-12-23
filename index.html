@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Astar的博客</title>
+  
+  
+  
+  <!--link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css"-->
+  
+<link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github-gist.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+<div class="Shell">
+    <aside class='SideBar'>
+    <section class='avatar' style="background-image: url()">
+        <div class='av-pic' style="background-image: url(/assets/avatar.jpg)">
+        </div>
+    </section>
+    <section class='menu'>
+        <div>Astar的博客</div>
+        
+        <ul>
+          
+            <a href="/" class="Btn">
+              <li>Home</li>
+            </a>  
+          
+            <a href="/archives/" class="Btn">
+              <li>Archive</li>
+            </a>  
+          
+            <a href="/tags/" class="Btn">
+              <li>Tags</li>
+            </a>  
+          
+            <a href="/about/" class="Btn">
+              <li>About</li>
+            </a>  
+          
+        </ul>
+    </section>
+    <section class="media">
+        
+            
+                <a target="_blank" rel="noopener" href="https://github.com/hello-astar">
+                    <img src="/assets/github.svg" />
+                </a>
+            
+        
+    </section>
+</aside>
+
+    <div class="container">
+        <div data-pager-shell>
+            <ul class="Index">
+  
+  
+    <li>
+      <article class='ListView'>
+    <header class="title">
+      
+        <h1>
+          <a href="/2020/12/23/CSS3%E2%80%94%E2%80%94CSS3%E7%9F%A9%E9%98%B5matrix%E8%BF%9B%E8%A1%8C2D%E5%8F%98%E6%8D%A2%E7%9A%84%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86/">CSS3——CSS3矩阵matrix进行2D变换的数学原理</a>
+        </h1>
+      
+      <div class='ListMeta'>
+  <time datetime="2020-12-23T11:32:10.000Z" itemprop="datePublished">
+    2020-12-23
+  </time>
+  
+  
+</div>
+
+    </header>
+    <div>
+      
+        <p>css3的2D转换中matrix接受6个参数，却可以实现平移、旋转、放缩、斜切四种效果。它是如何做到的呢？</p>
+<p>此处的你有两个选择<br>0 - 对自己有较高要求！老老实实静下心来将本文看完，<br>1 - 直接看总结——<a href="#declude">点我直达</a>，只学习如何使用matrix</p>
+<p><code>预备知识</code>：矩阵相乘、三角函数，fighting！</p>
+<p>此处附上矩阵相乘的<code>百度百科</code>定义<br><img src="https://img-blog.csdn.net/20181004234034404?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RyYWN5X2Zyb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"><br>我们先将matrix接受的六个参数记为a,b,c,d,e,f，则该变换矩阵记为<br><img src="https://img-blog.csdn.net/20181004124755430?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RyYWN5X2Zyb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"><br>二维平面上一个点记为（x,y），为了与<code>向量</code>区分开，我们使用数字<code>1</code>代表点，<code>0</code>代表向量，则二维平面上一个点应记为（x,y,1），为了使该点经过变换后依旧为（x,y,1）的形式，矩阵可以改为<br><img src="https://img-blog.csdn.net/20181004125031854?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RyYWN5X2Zyb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"><br>进行相乘变换（自行百度矩阵相乘的公式）<br><img src="https://img-blog.csdn.net/2018100412555912?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RyYWN5X2Zyb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"><br>我们得到了一个新的点（ax+cy+e,bx+dy+f,1）<br>怎么将这个冷冰冰的点和我们的平移旋转缩放斜切联系到一起呢？</p>
+<h2 id="平移"><a href="#平移" class="headerlink" title="平移"></a>平移</h2><p>我们知道，对一个点（x,y,1）向x轴正向平移10,向y轴正向平移20，得到的点为（x+10,y+20,1），而经过矩阵变换的点为（ax+cy+e,bx+dy+f,1），对比得到a=1,c=0,e=10,b=0,d=1,f=20<br>所以变换矩阵为<br><img src="https://img-blog.csdn.net/20181004130234876?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RyYWN5X2Zyb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transform: matrix(1,0,0,1,10,20); &#x2F;&#x2F; a&#x3D;1,c&#x3D;0,e&#x3D;10,b&#x3D;0,d&#x3D;1,f&#x3D;20</span><br></pre></td></tr></table></figure>
+<p>显然，与平移变换直接相关的参数为<code>e、f</code>参数！！<br>当我们只进行平移变换时，只需要这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transform: matrix(1,0,0,1,e,f); &#x2F;&#x2F; 相当于 transform: translate(e,f);</span><br></pre></td></tr></table></figure>
+<h2 id="放缩"><a href="#放缩" class="headerlink" title="放缩"></a>放缩</h2><p>假设我们对一个边长为10px的正方形放大2倍，如图所示<br><img src="https://img-blog.csdn.net/20181004132658994?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RyYWN5X2Zyb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"><br>对左上角的那个点来说，它由（0，10，1）变为（0，20，1）<br>对任意一个点（x,y,1）来说，放大后得到的点为（2x,2y,1），而经过矩阵变换的点为（ax+cy+e,bx+dy+f,1），对比得到a=2,c=0,e=0,b=0,d=2,f=0<br>所以变换矩阵为<br><img src="https://img-blog.csdn.net/20181004132942603?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RyYWN5X2Zyb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transform: matrix(2,0,0,2,0,0); &#x2F;&#x2F; a&#x3D;2,c&#x3D;0,e&#x3D;0,b&#x3D;0,d&#x3D;2,f&#x3D;0</span><br></pre></td></tr></table></figure>
+<p>显然，与缩放变换直接相关的参数为<code>a、d</code>参数！！<br>当我们只进行平移变换时，只需要这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transform: matrix(a,0,0,d,0,0); &#x2F;&#x2F; 相当于 transform: scale(a,d)</span><br></pre></td></tr></table></figure>
+<p>聪明的你现在肯定猜到了，如果既进行平移，又进行缩放，则<code>transform: matrix(a,0,0,d,e,f);</code>即可，a、d表示缩放，e、f表示平移</p>
+<h2 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h2><p>剩下两个参数b、c，可是还有旋转和斜切没有实现呢！（冒汗<br>旋转的话，涉及到旋转角度的问题啦。记为θ。<br>复习一波三角函数，以下使用<code>极坐标</code>表示<br><img src="https://img-blog.csdn.net/20181004140339439?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RyYWN5X2Zyb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"><br>来一波推理<br><img src="https://img-blog.csdn.net/20181004141052662?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RyYWN5X2Zyb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"><br>对任意一个点（x,y,1）来说，旋转θ°后得到的点为（xcosθ-ysinθ，xsinθ+ycosθ,1），而经过矩阵变换的点为（ax+cy+e,bx+dy+f,1），对比得到a=cosθ，b=sinθ，c=-sinθ，d=cosθ，e=0，f=0<br>所以变换矩阵为<br><img src="https://img-blog.csdn.net/20181004141522675?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RyYWN5X2Zyb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"><br>这里用到了a、b、c、d四个参数，前面我们知道缩放用了a、d两个参数，如果我们既要旋转又要缩放怎么办呢？？</p>
+<blockquote>
+<p>已经证明：任何二维组合变换均可分解为多个基本变换的乘积</p>
+</blockquote>
+<p>故我们只需要分别求出变换矩阵，再<code>相乘</code>即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">q&#x3D;DCBAp &#x3D;&gt; q&#x3D;(DCBA)p&#x3D;Mp</span><br></pre></td></tr></table></figure>
+<p>解释：p表示当前的点，ABCD表示四种变换，上述式子的变换顺序为A-&gt;B-&gt;C-&gt;D</p>
+<h2 id="斜切"><a href="#斜切" class="headerlink" title="斜切"></a>斜切</h2><p>先沿x轴扭曲<br><img src="https://img-blog.csdn.net/20181005120345938?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RyYWN5X2Zyb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"><br>有以下式子<br><img src="https://img-blog.csdn.net/20181005120547742?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RyYWN5X2Zyb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"><br>与(ax+cy+e,bx+dy+f,1)对比得出a=1，c=tanθ，e=0，b=0，d=1，f=0<br>所以变换矩阵为<br><img src="https://img-blog.csdn.net/20181005120823504?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RyYWN5X2Zyb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"><br>再看沿y轴扭曲<br><img src="https://img-blog.csdn.net/20181005121547189?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RyYWN5X2Zyb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdn.net/20181005121608273?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RyYWN5X2Zyb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"><br>变换矩阵为<br><img src="https://img-blog.csdn.net/20181005122453834?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RyYWN5X2Zyb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"><br>当l种变换同时进行时，有<br><img src="https://img-blog.csdn.net/20181005130855380?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RyYWN5X2Zyb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"><br>【思考】我们之前说过，任何二维组合变换均可分解为多个基本变换的乘积，为什么这里不是将两个扭曲矩阵相乘呢？（先沿x轴扭曲，再沿y轴扭曲？<br>emmm，是这样的，我们这里的计算都是相对<code>最初始</code>的图形，如果用两个矩阵相乘，则是使初始图形沿x轴扭曲θx度后得到的<code>新图形</code>再对y轴扭曲θy度！！如果要达到我们想要的效果，就只能重新计算沿y轴的扭曲角度！！</p>
+<p>【<span id="declude">总结</span>】<br>至此我们已经把2D变换的数学原理挖出来了，写一个用法总结，便于自己查找也便于大家查看</p>
+<ul>
+<li>平移，只需要控制最后两个参数e、f，a、d参数为1<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">transform: matrix(1,0,0,1,e,f);</span><br><span class="line">&#x2F;&#x2F; 等同于</span><br><span class="line">transform: translate(e,f);</span><br></pre></td></tr></table></figure></li>
+<li>放缩，只需要控制a、d参数，其它为0<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">transform: matrix(a,0,0,d,0,0); </span><br><span class="line">&#x2F;&#x2F; 等同于</span><br><span class="line">transform: scale(a,d);</span><br></pre></td></tr></table></figure></li>
+<li>旋转，只需要控制a、b、c、d参数<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">transform: matrix(cosθ, sinθ, -sinθ, cosθ)；</span><br><span class="line">&#x2F;&#x2F; 等同于</span><br><span class="line">rtransform: rotate(θdeg)</span><br></pre></td></tr></table></figure></li>
+<li>斜切<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">transform: matrix(1, tanθy, tanθx, 1, 0, 0);</span><br><span class="line">&#x2F;&#x2F; 等同于</span><br><span class="line">transform: skew(θx, θy);</span><br></pre></td></tr></table></figure></li>
+<li>复合变换<br>如以下这种类型，先旋转再缩放再扭曲，如何用矩阵得到呢？<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transform: rotate(360deg) scale(2,2) skew(10deg,5deg);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>已经证明：任何二维组合变换均可分解为多个基本变换的乘积<br>故我们先求出旋转矩阵A，缩放矩阵B和斜切矩阵C<br>最后得到变换矩阵M = CBA = C(B(A))</p>
+</blockquote>
+</li>
+</ul>
+<p>【什么时候我们用矩阵？】<br>思考下，既然已经有rotate、scale等函数，直接调用不就行了吗？？为什么人类要跟自己过不去，手算矩阵？？？<br>大部分情况下，当然是使用那些基本的rotate、scale函数就好了，下面这种类型的情况呢？</p>
+<ul>
+<li>需求说：请把这些点沿着y轴取对称。 你：简单<br>x’ = ax+cy+e = -x，y’ = bx+dy+f = y嘛，一番心算后你得到  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transform: matrix(-1,0,0,1,0,0);</span><br></pre></td></tr></table></figure></li>
+<li>需求说：算了，还是对y=x取对称吧。你：简单，先整体旋转<code>逆时针</code>旋转45°，再对y轴取对称，再整体<code>顺时针</code>旋转45°（45°）就好了嘛~<br><img src="https://img-blog.csdn.net/20181005144032545?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RyYWN5X2Zyb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"><br>  (上图右侧表示逆时针旋转)  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transform: matrix(0,1,1,0,0,0);</span><br></pre></td></tr></table></figure>
+  用我们的高中数学来验证一波，点(a,b)关于y=x轴取对称，得到的点应该为（b,a）<br>  <img src="https://img-blog.csdn.net/2018100514435764?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RyYWN5X2Zyb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="在这里插入图片描述"><br>  验证正确！</li>
+<li>需求犹豫了0.5s，哎呀还是对y=kx取对称吧…</li>
+<li>需求摇摇头说，对y=kx+b取对称吧….</li>
+</ul>
+<p>此处插播高中知识——如何关于一条直线取对称点呢？</p>
+<ol>
+<li>两个点关于一条直线对称，那么这两个点的连线的中点必在该直线上</li>
+<li>两个点的连线所在直线的斜率与该直线斜率的乘积为-1（因为垂直）</li>
+<li>可以列出两个方程，求出对称点！</li>
+<li>对称点都求出来了，矩阵也就出来了~</li>
+</ol>
+<ul>
+<li>现在请看官使用rotate、scale、skew、translate实现上述需求~</li>
+</ul>
+<p>【demo】<a target="_blank" rel="noopener" href="http://www.wukai.me/2015/10/22/css3-cube/">使用css3画一个立方体</a></p>
+<p>【参考】<br><a target="_blank" rel="noopener" href="https://www.atjiang.com/css-transform-skew-angle/">https://www.atjiang.com/css-transform-skew-angle/</a><br><a target="_blank" rel="noopener" href="http://0313.name/archives/66">http://0313.name/archives/66</a><br><a target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2012/06/css3-transform-matrix-%E7%9F%A9%E9%98%B5/">https://www.zhangxinxu.com/wordpress/2012/06/css3-transform-matrix-%E7%9F%A9%E9%98%B5/</a><br><a target="_blank" rel="noopener" href="http://www.wukai.me/2015/10/22/css3-cube/">http://www.wukai.me/2015/10/22/css3-cube/</a></p>
+
+      
+    </div>
+</article>
+
+    </li>
+  
+    <li>
+      <article class='ListView'>
+    <header class="title">
+      
+        <h1>
+          <a href="/2020/12/23/hello-world/">Hello World</a>
+        </h1>
+      
+      <div class='ListMeta'>
+  <time datetime="2020-12-23T10:15:49.795Z" itemprop="datePublished">
+    2020-12-23
+  </time>
+  
+  
+</div>
+
+    </header>
+    <div>
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+</article>
+
+    </li>
+  
+</ul>
+
+
+            <footer>
+    <div>© 2020 - Astar </div>
+    <div>
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>
+        </span>
+        ,
+        <span>
+            Theme - <a target="_blank" rel="noopener" href="https://github.com/nameoverflow/hexo-theme-icalm">Icalm</a>
+        </span>
+    </div>
+</footer>
+
+        </div>
+    </div>
+</div>
+
+<script src="/js/pager/dist/singlepager.js"></script>
+
+<script>
+var sp = new Pager('data-pager-shell')
+
+</script>
+</body>
+</html>
