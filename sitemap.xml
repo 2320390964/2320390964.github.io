@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hello-astar.github.io/about/index.html</loc>
+    
+    <lastmod>2020-12-29</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://hello-astar.github.io/404.html</loc>
+    
+    <lastmod>2020-12-29</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://hello-astar.github.io/2020/12/28/%E5%BE%AE%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6qiankun%E5%AE%9E%E8%B7%B5/</loc>
     
     <lastmod>2020-12-29</lastmod>
@@ -54,27 +68,6 @@
     <loc>https://hello-astar.github.io/search/index.html</loc>
     
     <lastmod>2020-12-25</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hello-astar.github.io/about/index.html</loc>
-    
-    <lastmod>2020-12-25</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hello-astar.github.io/categories/index.html</loc>
-    
-    <lastmod>2020-12-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://hello-astar.github.io/tags/index.html</loc>
-    
-    <lastmod>2020-12-23</lastmod>
     
   </url>
   
