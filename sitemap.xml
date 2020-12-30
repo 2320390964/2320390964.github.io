@@ -95,6 +95,13 @@
   </url>
   
   <url>
+    <loc>https://hello-astar.github.io/tags/css/</loc>
+    <lastmod>2020-12-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://hello-astar.github.io/tags/%E7%BD%91%E7%BB%9C/</loc>
     <lastmod>2020-12-30</lastmod>
     <changefreq>daily</changefreq>
@@ -103,13 +110,6 @@
   
   <url>
     <loc>https://hello-astar.github.io/tags/http/</loc>
-    <lastmod>2020-12-30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hello-astar.github.io/tags/css/</loc>
     <lastmod>2020-12-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
