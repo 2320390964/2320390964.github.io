@@ -6,7 +6,7 @@
   <link href="https://hello-astar.github.io/atom.xml" rel="self"/>
   
   <link href="https://hello-astar.github.io/"/>
-  <updated>2021-01-05T07:58:01.661Z</updated>
+  <updated>2021-01-05T08:41:18.705Z</updated>
   <id>https://hello-astar.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>vue-cli3兼容ie11</title>
+    <link href="https://hello-astar.github.io/2021/01/05/vue-cli3%E5%85%BC%E5%AE%B9ie11/"/>
+    <id>https://hello-astar.github.io/2021/01/05/vue-cli3%E5%85%BC%E5%AE%B9ie11/</id>
+    <published>2021-01-05T08:33:50.000Z</published>
+    <updated>2021-01-05T08:41:18.705Z</updated>
+    
+    <content type="html"><![CDATA[<p>在ie11下打开vue-cli3的项目，发现页面空白，使用babel-polyfill可兼容ie</p><h3 id="安装babel-polyfill"><a href="#安装babel-polyfill" class="headerlink" title="安装babel-polyfill"></a>安装babel-polyfill</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev babel-polyfill</span><br></pre></td></tr></table></figure><h3 id="修改vue-config-js文件，在入口处引入babel-polyfill"><a href="#修改vue-config-js文件，在入口处引入babel-polyfill" class="headerlink" title="修改vue.config.js文件，在入口处引入babel-polyfill"></a>修改vue.config.js文件，在入口处引入babel-polyfill</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">configureWebpack: (config) &#x3D;&gt; &#123;</span><br><span class="line">  config.entry.app &#x3D; [&#39;babel-polyfill&#39;, &#39;.&#x2F;src&#x2F;main.js&#39;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>【参考】<br><a href="https://segmentfault.com/a/1190000019525892?utm_source=sf-related">vue-cli3下，配置IE浏览器兼容性</a><br><a href="https://segmentfault.com/a/1190000022217565">前端开发中在IE11下出现的一些兼容性问题（持续汇总）</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;在ie11下打开vue-cli3的项目，发现页面空白，使用babel-polyfill可兼容ie&lt;/p&gt;
+&lt;h3 id=&quot;安装babel-polyfill&quot;&gt;&lt;a href=&quot;#安装babel-polyfill&quot; class=&quot;headerlink&quot; title=&quot;安装ba</summary>
+      
+    
+    
+    
+    
+    <category term="兼容ie" scheme="https://hello-astar.github.io/tags/%E5%85%BC%E5%AE%B9ie/"/>
+    
+  </entry>
   
   <entry>
     <title>react16在ie11下运行</title>
